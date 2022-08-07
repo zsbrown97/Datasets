@@ -6,18 +6,13 @@ import numpy as np
 
 mcu = pd.DataFrame(pd.read_csv('./mcu_box_office.csv'))
 
-def dividePhases(x):
-    phases = np.unique([x for x in mcu.index])
-    for x in phases:
-        return phases
-
-def rec(y):
-    x = mcu.loc[y].set_index('Film')
+def rec(phase):
+    x = mcu.loc[phase].set_index('Film')
     film = x.index.values
     crit = x['Critical Reception']
     aud = x['Audience Reception']
     x_axis = np.arange(len(film))
-    title = 'Reception of Phase '+str(y)
+    title = 'Reception of Phase '+str(phase)
     plotWidth = film.size * 3
 
     plt.figure(figsize=(plotWidth,10))
