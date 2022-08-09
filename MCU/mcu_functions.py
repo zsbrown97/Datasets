@@ -5,14 +5,15 @@ import pandas as pd
 import numpy as np
 
 mcu = pd.DataFrame(pd.read_csv('./mcu_box_office.csv'))
+mcu.columns = ['Film', 'Phase', 'Release Date', 'Critical Reception', 'Audience Reception', 'Length', 'Budget', 'Opening Weekend Gross', 'Domestic Gross', 'Worldwide Gross']
 
-def rec(phase):
-    x = mcu.loc[phase].set_index('Film')
-    film = x.index.values
-    crit = x['Critical Reception']
-    aud = x['Audience Reception']
+def reception(x):
+    phaseDf = mcu.loc[mcu['Phase'] == x]
+    film = phaseDf.index.values
+    crit = phaseDf['Critical Reception']
+    aud = phaseDf['Audience Reception']
     x_axis = np.arange(len(film))
-    title = 'Reception of Phase '+str(phase)
+    title = 'Reception of Phase '+str(x)
     plotWidth = film.size * 3
 
     plt.figure(figsize=(plotWidth,10))
